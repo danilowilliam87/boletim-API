@@ -22,10 +22,15 @@ public class Disciplina implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
+    @Column(name = "DESCRICAO")
+    private String desc;
+
     @ManyToMany(mappedBy = "disciplinas")
     private List<Curso>cursos;
 
-    @Column(name = "DESCRICAO")
-    private String desc;
+    @ManyToMany(mappedBy = "disciplinas")
+    private List<Professor>professores;
+
+
 
 }

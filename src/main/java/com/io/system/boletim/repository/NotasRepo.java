@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface NotasRepo extends JpaRepository<Notas, Long> {
 
-   @Query(value = "select n from NOTAS n where n.disciplinas.nome = ?1 and n.semestre = ?2")
+   @Query(value = "select n from NOTAS n where n.disciplina.nome = ?1 and n.semestre = ?2")
    public Optional<Notas> findByDisciplinaAndSemestre(@Param("NOME") String nomeDisciplina,
                                                       @Param("SEMESTRE") String semestre);
 }

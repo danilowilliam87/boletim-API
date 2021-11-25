@@ -25,13 +25,13 @@ public class Curso implements Serializable {
     @Column(name = "QUANTIDADE_DE_SEMESTRES")
     private int quantidadeDeSemestres;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "CURSO_DISCIPLINA",
                joinColumns = @JoinColumn(name = "idCurso"),
                inverseJoinColumns = @JoinColumn(name = "idDisciplina"))
     private List<Disciplina> disciplinas;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "CURSO_ALUNO",
             joinColumns = @JoinColumn(name = "idCurso"),
             inverseJoinColumns = @JoinColumn(name = "idAluno"))
