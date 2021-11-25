@@ -18,18 +18,20 @@ public class Notas implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Long id;
 
     @Column(name = "SEMESTRE")
     private String semestre;
 
-    @OneToOne(mappedBy = "notas")
+    @OneToOne
+    @JoinColumn(name = "ALUNO_ID")
     private Aluno aluno;
 
     @OneToOne
+    @JoinColumn(name = "DISCIPLINA_ID")
     private Disciplina disciplinas;
 
+    @Column(name = "SITUACAO")
     private StatusAluno statusAluno;
 
     @Column(name = "MEDIA")

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class AlunoServices {
 
-    private AlunoRepo alunoRepo;
+    private final AlunoRepo alunoRepo;
 
     public AlunoServices(AlunoRepo alunoRepo) {
         this.alunoRepo = alunoRepo;

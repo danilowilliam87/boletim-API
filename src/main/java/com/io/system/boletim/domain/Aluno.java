@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,13 +17,15 @@ public class Aluno implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Long id;
+
     @Column(name = "NOME")
     private String nome;
+
     @Column(name = "EMAIL")
     private String email;
 
-    @OneToOne
-    private Notas notas;
+    @ManyToMany(mappedBy = "alunos")
+    private List<Curso> cursos;
+
 }

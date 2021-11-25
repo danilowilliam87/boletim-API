@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class ProfessorServices {
 
-    private ProfessorRepo professorRepo;
+    private final ProfessorRepo professorRepo;
 
     public ProfessorServices(ProfessorRepo professorRepo) {
         this.professorRepo = professorRepo;
@@ -59,7 +59,7 @@ public class ProfessorServices {
         return professorRepo.save(professor);
     }
 
-    //listagem de alunos
+    //listagem de professores
     public List<Professor> findAll(){
         return professorRepo.findAll();
     }
