@@ -29,7 +29,7 @@ public class Notas implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "DISCIPLINA_ID")
-    private Disciplina disciplinas;
+    private Disciplina disciplina;
 
     @Column(name = "SITUACAO")
     private StatusAluno statusAluno;
