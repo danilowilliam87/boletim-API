@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/disciplinas")
@@ -45,5 +46,13 @@ public class DisciplinaController {
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public ResponseEntity<List<Disciplina>> findAll(){
+        List<Disciplina> list = services.findAll();
+        return ResponseEntity
+                .ok()
+                .body(list);
     }
 }
