@@ -3,10 +3,7 @@ package com.io.system.boletim.controller;
 import com.io.system.boletim.domain.Disciplina;
 import com.io.system.boletim.service.DisciplinaServices;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -30,9 +27,14 @@ public class DisciplinaController {
                 .path("/{id}")
                 .buildAndExpand(disciplina.getId())
                 .toUri();
-
         return ResponseEntity
                 .created(uri)
                 .build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<Disciplina> find(@PathVariable Long id){
+        Disciplina d = services.find(id);
+        return ResponseEntity.ok(d);
     }
 }

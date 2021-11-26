@@ -1,5 +1,6 @@
 package com.io.system.boletim.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,9 +26,11 @@ public class Disciplina implements Serializable {
     @Column(name = "DESCRICAO")
     private String desc;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "disciplinas")
     private List<Curso>cursos;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "disciplinas")
     private List<Professor>professores;
 

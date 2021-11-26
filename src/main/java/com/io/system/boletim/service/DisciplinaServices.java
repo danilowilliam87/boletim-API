@@ -42,11 +42,11 @@ public class DisciplinaServices {
         return disciplinaRepo.save(disciplina);
     }
 
-    //listagem de alunos
+    //listagem de todas as disciplinas
     public List<Disciplina> findAll(){
         return disciplinaRepo.findAll();
     }
-    //deletar aluno
+    //deletar disciplina
     public void delete(Long id){
         disciplinaRepo.deleteById(id);
     }
