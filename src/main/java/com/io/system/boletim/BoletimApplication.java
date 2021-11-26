@@ -67,6 +67,25 @@ public class BoletimApplication implements CommandLineRunner {
 		d2.setNome("Fisica");
 		d2.setDesc("Curso de Física Quantica");
 
+		Professor p10 = new Professor();
+		Professor p11 = new Professor();
+
+		p10.setNome("Teste p10");
+		p10.setEmail("teste@p10.com");
+
+		p11.setNome("Teste p11");
+		p11.setEmail("teste@p11.com");
+
+		d2.setProfessores(Arrays.asList(p10, p11));
+
+		p10.setDisciplinas(Arrays.asList(d2));
+		p11.setDisciplinas(Arrays.asList(d2));
+
+		//professorRepo.save(p10);
+		//professorRepo.save(p11);
+
+
+
 
 		Curso c1 = new Curso();
 		c1.setNome("Ensino médio");
@@ -87,7 +106,6 @@ public class BoletimApplication implements CommandLineRunner {
 		disciplinaRepo.save(d1);
 		disciplinaServices.save(d2);
 	    notasRepo.save(n1);
-
 		cursoRepo.save(c1);
 
 		Notas n2 = new Notas();
@@ -118,6 +136,10 @@ public class BoletimApplication implements CommandLineRunner {
 
         Professor busca = professorServices.findByEmail("ana@email.com");
 		System.out.println(busca.getNome());
+
+
+
+
 
 	}
 }

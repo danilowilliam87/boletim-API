@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/professores")
@@ -60,6 +62,25 @@ public class ProfessorController {
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public ResponseEntity<List<Professor>> findAll(){
+        List<Professor>list = services.findAll();
+        return ResponseEntity
+                .ok()
+                .body(list);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+         Professor p = new Professor(id, null, null, null);
+         p = services.updatePut(p, p.getId());
+
+         services.delete(p.getId());
+         return ResponseEntity
+                 .noContent()
+                 .build();
     }
 
 }

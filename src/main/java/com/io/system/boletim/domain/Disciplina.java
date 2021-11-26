@@ -30,8 +30,10 @@ public class Disciplina implements Serializable {
     @ManyToMany(mappedBy = "disciplinas")
     private List<Curso>cursos;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "disciplinas")
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "DISCIPLINA_PROFESSOR",
+            joinColumns = @JoinColumn(name = "idDisciplina"),
+            inverseJoinColumns = @JoinColumn(name = "idProfessor"))
     private List<Professor>professores;
 
 
