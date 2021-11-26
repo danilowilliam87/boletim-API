@@ -3,4 +3,6 @@ API ALUNOS
 Métodos e Situação
 
 1 - método save(Aluno aluno) - Ok
-2 - método findByid(Long id) - Ok
+2 - método findById(Long id) - Ok
+3 - método findByEmail(String email) estava gerando redundância cíclia ...após inserir as anotações
+@JsonManagedReference em Cursos e @JsonBackReference em Alunos a consulta retornou os dados normalmente

@@ -40,4 +40,10 @@ public class AlunoController {
         Aluno busca = services.find(id);
         return ResponseEntity.ok(busca);
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Aluno>findByEmail(@RequestParam(name = "email") String email){
+        Aluno busca = services.findByEmail(email);
+        return ResponseEntity.ok(busca);
+    }
 }

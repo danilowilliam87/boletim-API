@@ -1,5 +1,7 @@
 package com.io.system.boletim.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +33,7 @@ public class Curso implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "idDisciplina"))
     private List<Disciplina> disciplinas;
 
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(name = "CURSO_ALUNO",
             joinColumns = @JoinColumn(name = "idCurso"),

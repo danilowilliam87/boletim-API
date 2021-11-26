@@ -1,5 +1,7 @@
 package com.io.system.boletim.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +27,7 @@ public class Aluno implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "alunos")
     private List<Curso> cursos;
 
