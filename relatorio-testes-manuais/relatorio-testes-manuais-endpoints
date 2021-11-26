@@ -10,5 +10,10 @@ Métodos e Situação
 pois ao fazer o post estava gerando erro. resolvi colocando a anotação @jsonIgnore no relacionamento
 do na classe aluno na lista de cursos. Ok
 5 - método updatePut(Aluno aluno, Long id) Ok
-6 - método listarTodos
-7 - método delete(Long id)
+6 - método listarTodos - Ok
+7 - método delete(Long id) - Ok
+
+##################################################################################################################
+
+API DISCIPLINAS
+1 - método save(Disciplina disc)

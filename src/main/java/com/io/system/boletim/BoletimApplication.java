@@ -4,13 +4,13 @@ import com.io.system.boletim.domain.*;
 import com.io.system.boletim.repository.*;
 import com.io.system.boletim.service.AlunoServices;
 import com.io.system.boletim.service.CursoServices;
+import com.io.system.boletim.service.DisciplinaServices;
 import com.io.system.boletim.service.NotasServices;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class BoletimApplication implements CommandLineRunner {
@@ -24,8 +24,9 @@ public class BoletimApplication implements CommandLineRunner {
 	private final CursoServices cursoServices;
 	private final NotasServices notasServices;
 	private final AlunoServices alunoServices;
+	private final DisciplinaServices disciplinaServices;
 
-	public BoletimApplication(AlunoRepo alunoRepo, DisciplinaRepo disciplinaRepo, NotasRepo notasRepo, ProfessorRepo professorRepo, CursoRepo cursoRepo, CursoServices cursoServices, NotasServices notasServices, AlunoServices alunoServices) {
+	public BoletimApplication(AlunoRepo alunoRepo, DisciplinaRepo disciplinaRepo, NotasRepo notasRepo, ProfessorRepo professorRepo, CursoRepo cursoRepo, CursoServices cursoServices, NotasServices notasServices, AlunoServices alunoServices, DisciplinaServices disciplinaServices) {
 		this.alunoRepo = alunoRepo;
 		this.disciplinaRepo = disciplinaRepo;
 		this.notasRepo = notasRepo;
@@ -34,6 +35,7 @@ public class BoletimApplication implements CommandLineRunner {
 		this.cursoServices = cursoServices;
 		this.notasServices = notasServices;
 		this.alunoServices = alunoServices;
+		this.disciplinaServices = disciplinaServices;
 	}
 
 
@@ -60,6 +62,11 @@ public class BoletimApplication implements CommandLineRunner {
 
 		Disciplina d1 = new Disciplina();
 		d1.setNome("Portugues");
+		d1.setDesc("Curso de Língua Portuguesa");
+
+		Disciplina d2 = new Disciplina();
+		d2.setNome("Fisica");
+		d2.setDesc("Curso de Física Quantica");
 
 
 		Curso c1 = new Curso();
@@ -79,6 +86,7 @@ public class BoletimApplication implements CommandLineRunner {
 		alunoRepo.save(a1);
 		professorRepo.save(p1);
 		disciplinaRepo.save(d1);
+		disciplinaServices.save(d2);
 	    notasRepo.save(n1);
 
 		cursoRepo.save(c1);

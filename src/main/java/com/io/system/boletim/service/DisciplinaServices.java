@@ -19,7 +19,7 @@ public class DisciplinaServices {
         this.disciplinaRepo = disciplinaRepo;
     }
 
-    //salvar aluno
+    //salvar Disciplina
     public Disciplina save(Disciplina disciplina){
         return disciplinaRepo.save(disciplina);
     }
