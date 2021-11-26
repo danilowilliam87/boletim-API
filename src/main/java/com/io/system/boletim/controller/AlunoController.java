@@ -46,4 +46,12 @@ public class AlunoController {
         Aluno busca = services.findByEmail(email);
         return ResponseEntity.ok(busca);
     }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
+    public ResponseEntity<Void> updatePatch(@RequestBody Aluno aluno, @PathVariable Long id){
+        Aluno a = services.updatePatch(aluno, id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }

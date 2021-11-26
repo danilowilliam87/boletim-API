@@ -33,7 +33,7 @@ public class Curso implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "idDisciplina"))
     private List<Disciplina> disciplinas;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     @ManyToMany
     @JoinTable(name = "CURSO_ALUNO",
             joinColumns = @JoinColumn(name = "idCurso"),
