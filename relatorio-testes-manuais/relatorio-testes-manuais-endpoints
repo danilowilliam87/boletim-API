@@ -16,4 +16,12 @@ do na classe aluno na lista de cursos. Ok
 ##################################################################################################################
 
 API DISCIPLINAS
-1 - método save(Disciplina disc)
+1 - método save(Disciplina disc) Ok
+2 - método find(Disciplina disc) Ok
+3 - método updatePut(Disciplina disc) Ok
+4 - método findAll() Ok
+5 - método delete(Long id) Ok
+
+
+##################################################################################################################
+API PROFESSORES
