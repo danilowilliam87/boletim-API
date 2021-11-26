@@ -37,4 +37,13 @@ public class DisciplinaController {
         Disciplina d = services.find(id);
         return ResponseEntity.ok(d);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public ResponseEntity<Void> updatePut(@RequestBody Disciplina disciplina,
+                                          @PathVariable Long id){
+        Disciplina d = services.updatePut(disciplina, id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }
