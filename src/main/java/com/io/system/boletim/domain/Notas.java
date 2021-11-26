@@ -1,9 +1,7 @@
 package com.io.system.boletim.domain;
 
 import com.io.system.boletim.Enums.StatusAluno;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +9,8 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @NoArgsConstructor
 @Entity(name = "NOTAS")
 public class Notas implements Serializable {

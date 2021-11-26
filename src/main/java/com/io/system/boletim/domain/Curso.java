@@ -1,8 +1,6 @@
 package com.io.system.boletim.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Entity(name = "CURSO")
 public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -2,6 +2,7 @@ package com.io.system.boletim;
 
 import com.io.system.boletim.domain.*;
 import com.io.system.boletim.repository.*;
+import com.io.system.boletim.service.AlunoServices;
 import com.io.system.boletim.service.CursoServices;
 import com.io.system.boletim.service.NotasServices;
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class BoletimApplication implements CommandLineRunner {
@@ -21,8 +23,9 @@ public class BoletimApplication implements CommandLineRunner {
 
 	private final CursoServices cursoServices;
 	private final NotasServices notasServices;
+	private final AlunoServices alunoServices;
 
-	public BoletimApplication(AlunoRepo alunoRepo, DisciplinaRepo disciplinaRepo, NotasRepo notasRepo, ProfessorRepo professorRepo, CursoRepo cursoRepo, CursoServices cursoServices, NotasServices notasServices) {
+	public BoletimApplication(AlunoRepo alunoRepo, DisciplinaRepo disciplinaRepo, NotasRepo notasRepo, ProfessorRepo professorRepo, CursoRepo cursoRepo, CursoServices cursoServices, NotasServices notasServices, AlunoServices alunoServices) {
 		this.alunoRepo = alunoRepo;
 		this.disciplinaRepo = disciplinaRepo;
 		this.notasRepo = notasRepo;
@@ -30,6 +33,7 @@ public class BoletimApplication implements CommandLineRunner {
 		this.cursoRepo = cursoRepo;
 		this.cursoServices = cursoServices;
 		this.notasServices = notasServices;
+		this.alunoServices = alunoServices;
 	}
 
 
@@ -44,6 +48,11 @@ public class BoletimApplication implements CommandLineRunner {
 		Aluno a1 = new Aluno();
 		a1.setNome("Pedro");
 		a1.setEmail("pedro@gmail.com");
+
+		Aluno a2 = new Aluno();
+		a2.setNome("joão");
+		a2.setEmail("joao@email.com");
+
 
 		Professor p1 = new Professor();
 		p1.setNome("ana");
@@ -80,7 +89,26 @@ public class BoletimApplication implements CommandLineRunner {
 		n2.setDisciplina(d1);
 		n2.setNota(8.0);
 
-		notasServices.lancarNotas(n2);
+		notasServices.lancarNotas(n2);//Ok
+		alunoServices.save(a2);       //Ok
+
+		Aluno a3 = new Aluno();
+		a3.setNome("João de Jesus");
+		a3.setEmail("jj@gmail.com");
+		Long id = 2L;
+
+		//alunoServices.updatePatch(a3, id); Ok
+		//alunoServices.updatePut(a3, id);  Ok
+
+		// Aluno busca = alunoServices.findByEmail("joao@email.com"); Ok
+		//List<Aluno>listaDeAlunos = alunoServices.findAll(); Ok
+
+		/*System.out.println("######          lista de alunos : ######");
+		listaDeAlunos.forEach(aluno-> System.out.println(aluno.getNome()));
+		*/
+
+		//alunoServices.delete(2L); //Ok
+
 
 
 	}
