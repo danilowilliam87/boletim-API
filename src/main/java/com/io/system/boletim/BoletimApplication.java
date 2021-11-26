@@ -89,8 +89,8 @@ public class BoletimApplication implements CommandLineRunner {
 		n2.setDisciplina(d1);
 		n2.setNota(8.0);
 
-		notasServices.lancarNotas(n2);//Ok
-		alunoServices.save(a2);       //Ok
+		//notasServices.lancarNotas(n2);//Ok
+		//alunoServices.save(a2);       //Ok
 
 		Aluno a3 = new Aluno();
 		a3.setNome("João de Jesus");

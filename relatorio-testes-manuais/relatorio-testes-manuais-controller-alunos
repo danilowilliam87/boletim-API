@@ -8,4 +8,7 @@ Métodos e Situação
 @JsonManagedReference em Cursos e @JsonBackReference em Alunos a consulta retornou os dados normalmente
 4 - método updatePatch funcionando com sucesso. tive que retirar a anotação apontada no topico 3(@jsonManagedReference e backReference)
 pois ao fazer o post estava gerando erro. resolvi colocando a anotação @jsonIgnore no relacionamento
-do na classe aluno na lista de cursos.
+do na classe aluno na lista de cursos. Ok
+5 - método updatePut(Aluno aluno, Long id) Ok
+6 - método listarTodos
+7 - método delete(Long id)

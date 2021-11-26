@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/alunos")
@@ -19,10 +20,7 @@ public class AlunoController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value ="/ola")
-    public String helloWorld(){
-        return "Hello world";
-    }
+
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Aluno> save(@RequestBody Aluno aluno){
@@ -50,6 +48,32 @@ public class AlunoController {
     @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
     public ResponseEntity<Void> updatePatch(@RequestBody Aluno aluno, @PathVariable Long id){
         Aluno a = services.updatePatch(aluno, id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public ResponseEntity<Void> updatePut(@RequestBody Aluno aluno, @PathVariable Long id){
+        Aluno a = services.updatePut(aluno, id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/list")
+    public ResponseEntity<List<Aluno>> findListAll(){
+        List<Aluno>list = services.findAll();
+        return ResponseEntity
+                .ok()
+                .body(list);
+    }
+
+
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        services.delete(id);
         return ResponseEntity
                 .noContent()
                 .build();
