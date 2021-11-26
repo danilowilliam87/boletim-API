@@ -1,0 +1,6 @@
+API ALUNOS
+
+Métodos e Situação
+
+1 - método save(Aluno aluno) - Ok
+2 - método findByid(Long id) - Ok

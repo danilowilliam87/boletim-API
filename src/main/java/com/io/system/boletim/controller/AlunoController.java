@@ -34,4 +34,10 @@ public class AlunoController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<Aluno> findById(@PathVariable(name = "id") Long id){
+        Aluno busca = services.find(id);
+        return ResponseEntity.ok(busca);
+    }
 }
