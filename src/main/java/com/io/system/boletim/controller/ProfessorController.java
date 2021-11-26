@@ -37,4 +37,11 @@ public class ProfessorController {
         Professor professor = services.find(id);
         return ResponseEntity.ok(professor);
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Professor> findById(@RequestParam String email){
+        Professor professor = services.findByEmail(email);
+        return ResponseEntity.ok(professor);
+    }
+
 }

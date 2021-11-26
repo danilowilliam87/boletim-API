@@ -2,10 +2,7 @@ package com.io.system.boletim;
 
 import com.io.system.boletim.domain.*;
 import com.io.system.boletim.repository.*;
-import com.io.system.boletim.service.AlunoServices;
-import com.io.system.boletim.service.CursoServices;
-import com.io.system.boletim.service.DisciplinaServices;
-import com.io.system.boletim.service.NotasServices;
+import com.io.system.boletim.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +22,9 @@ public class BoletimApplication implements CommandLineRunner {
 	private final NotasServices notasServices;
 	private final AlunoServices alunoServices;
 	private final DisciplinaServices disciplinaServices;
+	private final ProfessorServices professorServices;
 
-	public BoletimApplication(AlunoRepo alunoRepo, DisciplinaRepo disciplinaRepo, NotasRepo notasRepo, ProfessorRepo professorRepo, CursoRepo cursoRepo, CursoServices cursoServices, NotasServices notasServices, AlunoServices alunoServices, DisciplinaServices disciplinaServices) {
+	public BoletimApplication(AlunoRepo alunoRepo, DisciplinaRepo disciplinaRepo, NotasRepo notasRepo, ProfessorRepo professorRepo, CursoRepo cursoRepo, CursoServices cursoServices, NotasServices notasServices, AlunoServices alunoServices, DisciplinaServices disciplinaServices, ProfessorServices professorServices) {
 		this.alunoRepo = alunoRepo;
 		this.disciplinaRepo = disciplinaRepo;
 		this.notasRepo = notasRepo;
@@ -36,6 +34,7 @@ public class BoletimApplication implements CommandLineRunner {
 		this.notasServices = notasServices;
 		this.alunoServices = alunoServices;
 		this.disciplinaServices = disciplinaServices;
+		this.professorServices = professorServices;
 	}
 
 
@@ -117,7 +116,8 @@ public class BoletimApplication implements CommandLineRunner {
 
 		//alunoServices.delete(2L); //Ok
 
-
+        Professor busca = professorServices.findByEmail("ana@email.com");
+		System.out.println(busca.getNome());
 
 	}
 }
