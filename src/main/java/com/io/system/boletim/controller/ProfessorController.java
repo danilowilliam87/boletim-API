@@ -44,4 +44,22 @@ public class ProfessorController {
         return ResponseEntity.ok(professor);
     }
 
+    @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
+    public ResponseEntity<Void> updatePatch(@RequestBody Professor professor,
+                                            @PathVariable Long id){
+        professor = services.updatePatch(professor, id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public ResponseEntity<Void> updatePut(@RequestBody Professor professor,
+                                          @PathVariable Long id){
+        professor = services.updatePut(professor, id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
 }

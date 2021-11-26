@@ -46,6 +46,7 @@ public class ProfessorServices {
             prof = proc.get();
             prof.setNome(Optional.ofNullable(professor.getNome()).orElse(prof.getNome()));
             prof.setEmail(Optional.ofNullable(professor.getEmail()).orElse(prof.getEmail()));
+            prof.setDisciplinas(Optional.ofNullable(professor.getDisciplinas()).orElse(prof.getDisciplinas()));
         }
         return save(prof);
     }

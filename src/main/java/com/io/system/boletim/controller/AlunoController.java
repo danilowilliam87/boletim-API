@@ -46,7 +46,8 @@ public class AlunoController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/{id}")
-    public ResponseEntity<Void> updatePatch(@RequestBody Aluno aluno, @PathVariable Long id){
+    public ResponseEntity<Void> updatePatch(@RequestBody Aluno aluno,
+                                            @PathVariable Long id){
         Aluno a = services.updatePatch(aluno, id);
         return ResponseEntity
                 .noContent()
@@ -54,7 +55,8 @@ public class AlunoController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-    public ResponseEntity<Void> updatePut(@RequestBody Aluno aluno, @PathVariable Long id){
+    public ResponseEntity<Void> updatePut(@RequestBody Aluno aluno,
+                                          @PathVariable Long id){
         Aluno a = services.updatePut(aluno, id);
         return ResponseEntity
                 .noContent()
