@@ -55,4 +55,12 @@ public class DisciplinaController {
                 .ok()
                 .body(list);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        services.delete(id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }
