@@ -1,5 +1,6 @@
 package com.io.system.boletim.controller;
 
+import com.io.system.boletim.domain.Disciplina;
 import com.io.system.boletim.domain.Professor;
 import com.io.system.boletim.service.ProfessorServices;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -74,10 +77,8 @@ public class ProfessorController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-         Professor p = new Professor(id, null, null, null);
-         p = services.updatePut(p, p.getId());
-
-         services.delete(p.getId());
+         Professor professor = services.find(id);
+         services.delete(id);
          return ResponseEntity
                  .noContent()
                  .build();

@@ -24,7 +24,13 @@ public class Professor implements Serializable{
     @Column(name = "EMAIL")
     private String email;
 
-    @ManyToMany(mappedBy = "professores")
+    @ManyToMany(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REFRESH})
+    @JoinTable(name = "PROFESSOR_DISCIPLINA",
+            joinColumns = @JoinColumn(name = "idProfessor"),
+            inverseJoinColumns = @JoinColumn(name = "idDisciplina"))
     private List<Disciplina>disciplinas;
 
 }

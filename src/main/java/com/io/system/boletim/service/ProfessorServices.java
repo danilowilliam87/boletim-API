@@ -46,7 +46,6 @@ public class ProfessorServices {
             prof = proc.get();
             prof.setNome(Optional.ofNullable(professor.getNome()).orElse(prof.getNome()));
             prof.setEmail(Optional.ofNullable(professor.getEmail()).orElse(prof.getEmail()));
-            prof.setDisciplinas(Optional.ofNullable(professor.getDisciplinas()).orElse(prof.getDisciplinas()));
         }
         return save(prof);
     }
@@ -67,6 +66,10 @@ public class ProfessorServices {
     //deletar aluno
     public void delete(Long id){
         professorRepo.deleteById(id);
+    }
+
+    public void deleteFromJoinTable(Long id){
+        professorRepo.deleteProfessorJOinTable(id);
     }
 
 

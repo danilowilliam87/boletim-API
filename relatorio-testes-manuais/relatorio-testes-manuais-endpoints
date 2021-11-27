@@ -43,7 +43,10 @@ API PROFESSORES
 
 4 - método findAll() Ok
 
-5 - método delete(Long id) Problema para resolver
-possivel solução : criar um delete nativo do sql ou
-jpql e etc... para remover associação.
+5 - método delete(Long id) Problema para resolver : dataIntegrityViolationException
+Resolvido.... Coloquei a Entidade professor como dominadora do relacionamento
+@ManyToMany entre professor e discipina. As operações em cascata foram de inserção
+e atualização. não coloquei a de remoção...pois ao remover o professor a disciplina tem que
+continuar lá visto que tem outros professores que lecionam a mesma disciplina.
 
+##################################################################################################################
