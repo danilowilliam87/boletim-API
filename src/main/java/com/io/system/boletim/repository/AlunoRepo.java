@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface AlunoRepo extends JpaRepository<Aluno, Long> {
 
     public Optional<Aluno> findAlunoByEmail(String email);
+    public Optional<Aluno> findAlunoByNomeEquals(String nome);
 }
