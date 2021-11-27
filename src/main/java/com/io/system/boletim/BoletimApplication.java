@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class BoletimApplication implements CommandLineRunner {
@@ -94,16 +95,23 @@ public class BoletimApplication implements CommandLineRunner {
 		nota1.setAluno(a1);
 
 		Notas nota2 = new Notas();
-		nota2.setNota(5.0);
+		nota2.setNota(10.0);
 		nota2.setDisciplina(d1);
 		nota2.setSemestre("1ºsemestre");
 		nota2.setAluno(a2);
+
+		Notas nota3 = new Notas();
+		nota3.setNota(10.0);
+		nota3.setDisciplina(d3);
+		nota3.setSemestre("1ºsemestre");
+		nota3.setAluno(a2);
 
 
 		alunoServices.save(a1);
 		alunoServices.save(a2);
 		notasServices.lancarNotas(nota1);
 		notasServices.lancarNotas(nota2);
+		notasServices.lancarNotas(nota3);
 
 		System.out.println("########################  NOTAS DO ALUNO A1 ##############################");
 		Notas busca = new Notas();
@@ -124,7 +132,16 @@ public class BoletimApplication implements CommandLineRunner {
 		System.out.println("SITUACAO : " + busca1.getStatusAluno().toString());
 		System.out.println("SITUACAO : " + busca.getDisciplina().getNome());
 
+		List<Notas> listaNotasPorAluno = notasServices
+				.findAllByAlunoAndSemestre("joao@email.com", "1ºsemestre");
 
+		System.out.println("########################  NOTAS DO ALUNO A2 ##############################");
+		listaNotasPorAluno.forEach(notas -> System.out.println(
+				         "-----------------------------------------------------------------------------\n"+
+				                  "NOME DA DISCIPLINA : " +notas.getDisciplina().getNome() +
+				                  "\nNOTA : "+notas.getNota()
+						+"\nSITUAÇÃO : " + notas.getStatusAluno()
+		                +"\n-----------------------------------------------------------------------------"));
 		//professorRepo.save(p10);
 		//professorRepo.save(p11);
 		//notasServices.lancarNotas(n2);//Ok

@@ -11,6 +11,7 @@ import org.aspectj.weaver.ast.Not;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,6 +47,16 @@ public class NotasServices {
         return buscaNota.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Id :",
               finalN.getId() + "Tipo :"
                 + Notas.class.getName()));
+    }
+
+    public List<Notas> findAllByAlunoAndSemestre(String emailAluno, String semestre){
+        Optional<Aluno> busca = alunoRepo.findAlunoByEmail(emailAluno);
+        Aluno aluno = new Aluno();
+        if(busca.isPresent()){
+            aluno = busca.get();
+        }
+        List<Notas> list = notasRepo.findAllByAlunoAndSemestre(aluno, semestre);
+        return list;
     }
 
 
