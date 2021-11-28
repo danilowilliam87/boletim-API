@@ -32,7 +32,7 @@ public class AlunoServices {
 
     //busca aluno pelo email
     public Aluno findByEmail(String email){
-        Optional<Aluno> aln = alunoRepo.findAlunoByEmail(email);
+        Optional<Aluno> aln = alunoRepo.findAlunoByEmailEquals(email);
         return aln.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Email :" + email,"Tipo :"
                 + Aluno.class.getName()));
     }

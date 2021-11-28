@@ -56,6 +56,18 @@ public class BoletimApplication implements CommandLineRunner {
 		a2.setNome("joão");
 		a2.setEmail("joao@email.com");
 
+		Aluno a3 = new Aluno();
+		a3.setNome("maria");
+		a3.setEmail("maria@email.com");
+
+		Aluno a4 = new Aluno();
+		a4.setNome("julia");
+		a4.setEmail("julia@email.com");
+
+		Aluno a5 = new Aluno();
+		a5.setNome("joana");
+		a5.setEmail("joana@email.com");
+
 
 		Professor p1 = new Professor();
 		p1.setNome("ana");
@@ -82,8 +94,8 @@ public class BoletimApplication implements CommandLineRunner {
 		p11.setNome("Teste p11");
 		p11.setEmail("teste@p11.com");
 
-		p1.setDisciplinas(Arrays.asList(d1,d2));
-		p10.setDisciplinas(Arrays.asList(d1,d2));
+		p1.setDisciplinas(Arrays.asList(d1));
+		p10.setDisciplinas(Arrays.asList(d2));
 		p11.setDisciplinas(Arrays.asList(d3));
 
 		professorRepo.saveAll(Arrays.asList(p1, p10, p11));
@@ -91,57 +103,65 @@ public class BoletimApplication implements CommandLineRunner {
 		Notas nota1 = new Notas();
 		nota1.setNota(10.0);
 		nota1.setDisciplina(d1);
-		nota1.setSemestre("1ºsemestre");
+		nota1.setSemestre("1");
 		nota1.setAluno(a1);
+
 
 		Notas nota2 = new Notas();
 		nota2.setNota(10.0);
 		nota2.setDisciplina(d1);
-		nota2.setSemestre("1ºsemestre");
-		nota2.setAluno(a2);
+		nota2.setSemestre("1");
+		nota2.setAluno(a3);
 
 		Notas nota3 = new Notas();
 		nota3.setNota(10.0);
-		nota3.setDisciplina(d3);
-		nota3.setSemestre("1ºsemestre");
-		nota3.setAluno(a2);
+		nota3.setDisciplina(d1);
+		nota3.setSemestre("1");
+		nota3.setAluno(a4);
+
+		Notas nota4 = new Notas();
+		nota4.setNota(10.0);
+		nota4.setDisciplina(d1);
+		nota4.setSemestre("1");
+		nota4.setAluno(a2);
+
+		Notas nota5 = new Notas();
+		nota5.setNota(10.0);
+		nota5.setDisciplina(d1);
+		nota5.setSemestre("1");
+		nota5.setAluno(a5);
 
 
 		alunoServices.save(a1);
 		alunoServices.save(a2);
+		alunoServices.save(a3);
+		alunoServices.save(a4);
+		alunoServices.save(a5);
+
 		notasServices.lancarNotas(nota1);
 		notasServices.lancarNotas(nota2);
 		notasServices.lancarNotas(nota3);
-
-		System.out.println("########################  NOTAS DO ALUNO A1 ##############################");
-		Notas busca = new Notas();
-		busca = notasServices.find(1L);
-		System.out.println("NOME DO ALUNO : " + busca.getAluno().getNome());
-		System.out.println("NOTA DO ALUNO : " + busca.getNota());
-		System.out.println("SEMESTRE : " + busca.getSemestre());
-		System.out.println("SITUACAO : " + busca.getStatusAluno().toString());
-		System.out.println("SITUACAO : " + busca.getDisciplina().getNome());
+		notasServices.lancarNotas(nota4);
+		notasServices.lancarNotas(nota5);
 
 
-		System.out.println("########################  NOTAS DO ALUNO A2 ##############################");
-		Notas busca1 = new Notas();
-		busca1 = notasServices.findByAlunoAndDisciplina("joao@email.com","Portugues");
-		System.out.println("NOME DO ALUNO : " + busca1.getAluno().getNome());
-		System.out.println("NOTA DO ALUNO : " + busca1.getNota());
-		System.out.println("SEMESTRE : " + busca1.getSemestre());
-		System.out.println("SITUACAO : " + busca1.getStatusAluno().toString());
-		System.out.println("SITUACAO : " + busca.getDisciplina().getNome());
+
 
 		List<Notas> listaNotasPorAluno = notasServices
-				.findAllByAlunoAndSemestre("joao@email.com", "1ºsemestre");
+				.findAllByAlunoAndSemestre("joao@email.com", "1");
 
-		System.out.println("########################  NOTAS DO ALUNO A2 ##############################");
+		System.out.println("########################  NOTAS DO ALUNO "+listaNotasPorAluno.get(0).getAluno().getNome() +" ##############################");
 		listaNotasPorAluno.forEach(notas -> System.out.println(
 				         "-----------------------------------------------------------------------------\n"+
 				                  "NOME DA DISCIPLINA : " +notas.getDisciplina().getNome() +
 				                  "\nNOTA : "+notas.getNota()
 						+"\nSITUAÇÃO : " + notas.getStatusAluno()
 		                +"\n-----------------------------------------------------------------------------"));
+
+
+
+		int linhas = listaNotasPorAluno.size();
+		System.out.println("quantidade de registros : " + linhas);
 		//professorRepo.save(p10);
 		//professorRepo.save(p11);
 		//notasServices.lancarNotas(n2);//Ok

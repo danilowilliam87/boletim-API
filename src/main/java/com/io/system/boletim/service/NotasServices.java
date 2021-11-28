@@ -26,6 +26,7 @@ public class NotasServices {
         this.alunoRepo = alunoRepo;
     }
 
+    //ainda não decidi se vou disponibiliar esse método em algum endpoint
     public Notas find(Long id){
         Optional<Notas> notas = notasRepo.findById(id);
         return notas.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Id :" + id,"Tipo :"
@@ -35,7 +36,7 @@ public class NotasServices {
     public Notas findByAlunoAndDisciplina(String emailAluno, String nomeDisciplina){
         Notas n = new Notas();
         Optional<Notas> buscaNota = null;
-        Optional<Aluno> buscaAluno = alunoRepo.findAlunoByEmail(emailAluno);
+        Optional<Aluno> buscaAluno = alunoRepo.findAlunoByEmailEquals(emailAluno);
         Optional<Disciplina> buscaDisciplina = disciplinaRepo.findDisciplinaByNomeEquals(nomeDisciplina);
         if(buscaAluno.isPresent() && buscaDisciplina.isPresent()){
             buscaNota = notasRepo
@@ -46,10 +47,13 @@ public class NotasServices {
         return buscaNota.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Id :",
               finalN.getId() + "Tipo :"
                 + Notas.class.getName()));
+
+
+
     }
 
     public List<Notas> findAllByAlunoAndSemestre(String emailAluno, String semestre){
-        Optional<Aluno> busca = alunoRepo.findAlunoByEmail(emailAluno);
+        Optional<Aluno> busca = alunoRepo.findAlunoByEmailEquals(emailAluno);
         Aluno aluno = new Aluno();
         if(busca.isPresent()){
             aluno = busca.get();
@@ -62,7 +66,7 @@ public class NotasServices {
     public Notas lancarNotas(Notas notas){
         try {
             Optional<Aluno> buscaAluno = alunoRepo
-                    .findAlunoByEmail(notas.getAluno().getEmail());
+                    .findAlunoByEmailEquals(notas.getAluno().getEmail());
 
             Optional<Disciplina> buscaDisciplina = disciplinaRepo
                     .findDisciplinaByNomeEquals(notas.getDisciplina().getNome());
@@ -77,9 +81,9 @@ public class NotasServices {
                 } else {
                     notas.setStatusAluno(StatusAluno.REPROVADO);
                 }
-            } else throw new Exception("objetos aluno e discipina não encontrados");
+            }
         } catch (Exception e){
-            //tratar com exceçõa personalizada futuramente
+            //tratar com exceção personalizada futuramente
             e.printStackTrace();
         }
         return notasRepo.save(notas);

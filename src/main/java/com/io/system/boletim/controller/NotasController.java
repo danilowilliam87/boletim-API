@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,5 +40,14 @@ public class NotasController {
         return ResponseEntity
                 .ok()
                 .body(notas);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/list")
+    public ResponseEntity<List<Notas>> findAllByAlunoAndSemestre(@RequestParam(value = "email") String emailAluno,
+                                                                 @RequestParam(value = "semestre") String semestre){
+        List<Notas> list = services.findAllByAlunoAndSemestre( emailAluno, semestre );
+        return ResponseEntity
+                .ok()
+                .body(list);
     }
 }
