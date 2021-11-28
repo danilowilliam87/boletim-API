@@ -7,7 +7,6 @@ import com.io.system.boletim.domain.Notas;
 import com.io.system.boletim.repository.AlunoRepo;
 import com.io.system.boletim.repository.DisciplinaRepo;
 import com.io.system.boletim.repository.NotasRepo;
-import org.aspectj.weaver.ast.Not;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -61,12 +60,27 @@ public class NotasServices {
 
 
     public Notas lancarNotas(Notas notas){
-        if(notas.getNota() > 6.0 && notas.getNota() <= 10.0){
-            notas.setStatusAluno(StatusAluno.APROVADO);
-        }else if(notas.getNota() > 4.0 && notas.getNota() < 6.0){
-            notas.setStatusAluno(StatusAluno.RECUPERACAO);
-        }else {
-            notas.setStatusAluno(StatusAluno.REPROVADO);
+        try {
+            Optional<Aluno> buscaAluno = alunoRepo
+                    .findAlunoByEmail(notas.getAluno().getEmail());
+
+            Optional<Disciplina> buscaDisciplina = disciplinaRepo
+                    .findDisciplinaByNomeEquals(notas.getDisciplina().getNome());
+
+            if (buscaAluno.isPresent() && buscaDisciplina.isPresent()) {
+                notas.setDisciplina(buscaDisciplina.get());
+                notas.setAluno(buscaAluno.get());
+                if (notas.getNota() >= 6.0 && notas.getNota() <= 10.0) {
+                    notas.setStatusAluno(StatusAluno.APROVADO);
+                } else if (notas.getNota() > 4.0 && notas.getNota() < 6.0) {
+                    notas.setStatusAluno(StatusAluno.RECUPERACAO);
+                } else {
+                    notas.setStatusAluno(StatusAluno.REPROVADO);
+                }
+            } else throw new Exception("objetos aluno e discipina não encontrados");
+        } catch (Exception e){
+            //tratar com exceçõa personalizada futuramente
+            e.printStackTrace();
         }
         return notasRepo.save(notas);
     }

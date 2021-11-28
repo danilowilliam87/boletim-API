@@ -50,3 +50,11 @@ e atualização. não coloquei a de remoção...pois ao remover o professor a di
 continuar lá visto que tem outros professores que lecionam a mesma disciplina.
 
 ##################################################################################################################
+
+NOTAS API
+
+1 - método save(Notas notas)
+na primeira tentaiva recebi o erro referente a tentar vincular um aluno e uma disciplina que
+não estavam salvas...contornei esse problema realizando uma colsulta no banco e fazendo vínculo
+com o objeto notas...outra alternativa a esse método é informar o email do aluno e o nome da dsicplina
+na URL via param
