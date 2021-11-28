@@ -7,6 +7,7 @@ import com.io.system.boletim.domain.Notas;
 import com.io.system.boletim.repository.AlunoRepo;
 import com.io.system.boletim.repository.DisciplinaRepo;
 import com.io.system.boletim.repository.NotasRepo;
+import org.aspectj.weaver.ast.Not;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +48,6 @@ public class NotasServices {
         return buscaNota.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Id :",
               finalN.getId() + "Tipo :"
                 + Notas.class.getName()));
-
-
-
     }
 
     public List<Notas> findAllByAlunoAndSemestre(String emailAluno, String semestre){
@@ -62,25 +60,45 @@ public class NotasServices {
         return list;
     }
 
+    //metodo para alterar notas em caso de erro no lançamento...
+    //nota tera que obrigatoriamente ser informada no corpo da requisição
+    public void updatePatch(Notas notas, String email, String nomeDisciplina){
+        Optional<Aluno> buscaAluno = alunoRepo
+                .findAlunoByEmailEquals(notas.getAluno().getEmail());
+        Optional<Disciplina> buscaDisciplina = disciplinaRepo
+                .findDisciplinaByNomeEquals(notas.getDisciplina().getNome());
+        notas.setAluno(Optional.ofNullable(buscaAluno.get())
+                .orElse(notas.getAluno()));
+        notas.setDisciplina(Optional.ofNullable(buscaDisciplina.get())
+                .orElse(notas.getDisciplina()));
+        Optional<Notas> buscaNota = notasRepo
+                .findNotasByDisciplinaAndAluno(notas.getDisciplina(), notas.getAluno());
+        notas.setId(buscaNota.get().getId());
+        setStatus(notas);
+        lancarNotas(notas);
+    }
+
+    public void setStatus(Notas notas){
+            if (notas.getNota() >= 6.0 && notas.getNota() <= 10.0) {
+                notas.setStatusAluno(StatusAluno.APROVADO);
+            } else if (notas.getNota() > 4.0 && notas.getNota() < 6.0) {
+                notas.setStatusAluno(StatusAluno.RECUPERACAO);
+            } else {
+                notas.setStatusAluno(StatusAluno.REPROVADO);
+            }
+    }
+
 
     public Notas lancarNotas(Notas notas){
         try {
             Optional<Aluno> buscaAluno = alunoRepo
                     .findAlunoByEmailEquals(notas.getAluno().getEmail());
-
             Optional<Disciplina> buscaDisciplina = disciplinaRepo
                     .findDisciplinaByNomeEquals(notas.getDisciplina().getNome());
-
             if (buscaAluno.isPresent() && buscaDisciplina.isPresent()) {
                 notas.setDisciplina(buscaDisciplina.get());
                 notas.setAluno(buscaAluno.get());
-                if (notas.getNota() >= 6.0 && notas.getNota() <= 10.0) {
-                    notas.setStatusAluno(StatusAluno.APROVADO);
-                } else if (notas.getNota() > 4.0 && notas.getNota() < 6.0) {
-                    notas.setStatusAluno(StatusAluno.RECUPERACAO);
-                } else {
-                    notas.setStatusAluno(StatusAluno.REPROVADO);
-                }
+               setStatus(notas);
             }
         } catch (Exception e){
             //tratar com exceção personalizada futuramente
