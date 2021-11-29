@@ -3,10 +3,7 @@ package com.io.system.boletim.controller;
 import com.io.system.boletim.domain.Curso;
 import com.io.system.boletim.service.CursoServices;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -33,5 +30,12 @@ public class CursoController {
         return ResponseEntity
                 .created(uri)
                 .build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<Curso> findById(@PathVariable(value = "id") Long id){
+        Curso busca = services.find(id);
+        return ResponseEntity
+                .ok(busca);
     }
 }
