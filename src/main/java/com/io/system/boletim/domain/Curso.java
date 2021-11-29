@@ -27,9 +27,9 @@ public class Curso implements Serializable {
     @Column(name = "QUANTIDADE_DE_SEMESTRES")
     private int quantidadeDeSemestres;
 
-    //@ManyToMany(mappedBy = "cursos")
-    //private List<Disciplina>discipinas;
+    @ManyToMany(mappedBy = "cursos", fetch = FetchType.EAGER)
+    private List<Disciplina>discipinas;
 
-    //@ManyToMany(mappedBy = "cursos")
-    //private List<Aluno>alunos;
+    @ManyToMany(mappedBy = "cursos")
+    private List<Aluno>alunos;
 }

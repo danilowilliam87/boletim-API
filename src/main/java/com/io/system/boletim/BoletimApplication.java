@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -173,7 +174,7 @@ public class BoletimApplication implements CommandLineRunner {
 		notasServices.lancarNotas(nota4);
 		notasServices.lancarNotas(nota5);
 
-		professorRepo.delete(pardal);
+		//professorRepo.delete(pardal);
         //disciplinaRepo.delete(java);
 		//disciplinaRepo.delete(bancoDeDados);
         //cursoRepo.delete(curso1);
@@ -190,8 +191,15 @@ public class BoletimApplication implements CommandLineRunner {
 
 		listaDeCursos.forEach(curso -> System.out.println("nome do curso : " + curso.getNome()));
 
+		List<Disciplina>listaDeDisciplinas = new ArrayList<>();
 
+		for(int i = 0; i < listaDeCursos.size(); i++){
+			listaDeDisciplinas.add(listaDeCursos.get(i).getDiscipinas().get(i));
+		}
 
+		listaDeDisciplinas.forEach(d->{
+			System.out.println(d.getNome());
+		});
 
 
 	}

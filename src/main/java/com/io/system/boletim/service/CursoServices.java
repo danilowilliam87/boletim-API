@@ -39,7 +39,12 @@ public class CursoServices {
         return cursoRepo.findAll();
     }
 
+    //antes de deletar um curso, o mesmo
+    //tem que estar desvinculado de
+    //qualquer disciplina
     private void delete(Long id){
+
+
         cursoRepo.deleteById(id);
     }
 

@@ -28,7 +28,8 @@ public class Disciplina implements Serializable {
 
     @ManyToMany(cascade = { CascadeType.MERGE,
                             CascadeType.REFRESH,
-                            CascadeType.DETACH})
+                            CascadeType.DETACH},
+                 fetch = FetchType.EAGER)
     @JoinTable(name = "DISCIPLINA_CURSO",
             joinColumns = @JoinColumn(name = "idDisciplina"),
             inverseJoinColumns = @JoinColumn(name = "idCurso"))
