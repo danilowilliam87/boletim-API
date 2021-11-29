@@ -13,6 +13,7 @@ public class CursoServices {
 
     private final CursoRepo cursoRepo;
 
+
     public CursoServices(CursoRepo cursoRepo) {
         this.cursoRepo = cursoRepo;
     }
@@ -28,36 +29,11 @@ public class CursoServices {
     }
 
     public Curso findByName(String name){
-        Optional<Curso> curso = cursoRepo.findCursoByNome(name);
+        Optional<Curso> curso = cursoRepo.findCursoByNomeEquals(name);
         return curso.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Nome :" + name,"Tipo :"
                 + Curso.class.getName()));
     }
 
-    public void updatePut(Curso curso, Long id){
-        Optional<Curso>proc = cursoRepo.findById(id);
-        if (proc.isPresent()){
-            curso.setId(proc.get().getId());
-        }
-         cursoRepo.save(curso);
-    }
-
-    public void updatePatch(Curso curso, Long id){
-        Optional<Curso>proc = cursoRepo.findById(id);
-        Curso c = null;
-        if (proc.isPresent()){
-            c = proc.get();
-            c.setId(id);
-            c.setNome(Optional.ofNullable(curso.getNome()).orElse(c.getNome()));
-            c.setQuantidadeDeSemestres(Optional.ofNullable(curso.getQuantidadeDeSemestres())
-                    .orElse(c.getQuantidadeDeSemestres()));
-            c.setDisciplinas(Optional.ofNullable(curso.getDisciplinas())
-                    .orElse(c.getDisciplinas()));
-            c.setAlunos(Optional.ofNullable(curso.getAlunos())
-                    .orElse(c.getAlunos()));
-        }
-
-        cursoRepo.save(c);
-    }
 
     private List<Curso> listar(){
         return cursoRepo.findAll();

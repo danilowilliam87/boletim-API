@@ -28,9 +28,12 @@ public class Aluno implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
-    //@JsonBackReference
-    @ManyToMany(mappedBy = "alunos")
-    @JsonIgnore
+    @ManyToMany(cascade = { CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.DETACH})
+    @JoinTable(name = "ALUNO_CURSO",
+            joinColumns = @JoinColumn(name = "idAluno"),
+            inverseJoinColumns = @JoinColumn(name = "idCurso"))
     private List<Curso> cursos;
 
 }

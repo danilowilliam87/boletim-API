@@ -26,8 +26,12 @@ public class Disciplina implements Serializable {
     @Column(name = "DESCRICAO")
     private String desc;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "disciplinas")
+    @ManyToMany(cascade = { CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.DETACH})
+    @JoinTable(name = "DISCIPLINA_CURSO",
+            joinColumns = @JoinColumn(name = "idDisciplina"),
+            inverseJoinColumns = @JoinColumn(name = "idCurso"))
     private List<Curso>cursos;
 
 

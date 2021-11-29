@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class BoletimApplication implements CommandLineRunner {
@@ -48,6 +49,16 @@ public class BoletimApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		Curso curso1 = new Curso();
+		Curso curso2 = new Curso();
+
+		curso1.setNome("ANÁLISE E DESENVOLVIMENTO DE SISTEMAS");
+		curso1.setQuantidadeDeSemestres(5);
+
+		curso2.setNome("BANCO DE DADOS");
+		curso2.setQuantidadeDeSemestres(5);
+
 		Aluno a1 = new Aluno();
 		a1.setNome("Pedro");
 		a1.setEmail("pedro@gmail.com");
@@ -85,8 +96,22 @@ public class BoletimApplication implements CommandLineRunner {
 		d3.setNome("Fisica");
 		d3.setDesc("Curso de Física Quantica");
 
+		Disciplina bancoDeDados= new Disciplina();
+		bancoDeDados.setNome("Banco de Dados com SQL");
+		bancoDeDados.setDesc("Conceitos referentes a banco de dados");
+        bancoDeDados.setCursos(Arrays.asList(curso1, curso2));
+
+		Disciplina java = new Disciplina();
+		java.setNome("Programação OO com Java");
+		java.setDesc("POO com Java");java.setCursos(Arrays.asList(curso1, curso2));
+
+
 		Professor p10 = new Professor();
 		Professor p11 = new Professor();
+        Professor pardal = new Professor();
+		pardal.setNome("Pardal");
+		pardal.setEmail("pardal@milhopist.com");
+		pardal.setDisciplinas(Arrays.asList(java, bancoDeDados));
 
 		p10.setNome("Teste p10");
 		p10.setEmail("teste@p10.com");
@@ -98,7 +123,11 @@ public class BoletimApplication implements CommandLineRunner {
 		p10.setDisciplinas(Arrays.asList(d2));
 		p11.setDisciplinas(Arrays.asList(d3));
 
-		professorRepo.saveAll(Arrays.asList(p1, p10, p11));
+
+
+		cursoRepo.save(curso1);
+		cursoRepo.save(curso2);
+		professorRepo.saveAll(Arrays.asList(p1, p10, p11, pardal));
 
 		Notas nota1 = new Notas();
 		nota1.setNota(10.0);
@@ -144,38 +173,26 @@ public class BoletimApplication implements CommandLineRunner {
 		notasServices.lancarNotas(nota4);
 		notasServices.lancarNotas(nota5);
 
-		Notas nova = new Notas();
-		nova.setNota(-1);
+		professorRepo.delete(pardal);
+        //disciplinaRepo.delete(java);
+		//disciplinaRepo.delete(bancoDeDados);
+        //cursoRepo.delete(curso1);
 
-        notasServices.updatePatch(nova, "joana@email.com", "Portugues");
+		Optional<Curso>buscaCurso = cursoRepo.findCursoByNomeEquals("ANÁLISE E DESENVOLVIMENTO DE SISTEMAS");
+
+		if(buscaCurso.isPresent()){
+			System.out.println("NOME DO CURSO : " + buscaCurso.get().getNome());
+		} else{
+			System.out.println("NÃO EXISTE CURSO COM ESSE NOME");
+		}
+
+		List<Curso> listaDeCursos = cursoRepo.findAll();
+
+		listaDeCursos.forEach(curso -> System.out.println("nome do curso : " + curso.getNome()));
 
 
-		List<Notas> listaNotasPorAluno = notasServices
-				.findAllByAlunoAndSemestre("joana@email.com", "1");
-
-		System.out.println("########################  NOTAS DO ALUNO "+listaNotasPorAluno.get(0).getAluno().getNome() +" ##############################");
-		listaNotasPorAluno.forEach(notas -> System.out.println(
-				         "-----------------------------------------------------------------------------\n"+
-				                  "NOME DA DISCIPLINA : " +notas.getDisciplina().getNome() +
-				                  "\nNOTA : "+notas.getNota()
-						+"\nSITUAÇÃO : " + notas.getStatusAluno()
-		                +"\n-----------------------------------------------------------------------------"));
 
 
 
-		int linhas = listaNotasPorAluno.size();
-		System.out.println("quantidade de registros : " + linhas);
-		//professorRepo.save(p10);
-		//professorRepo.save(p11);
-		//notasServices.lancarNotas(n2);//Ok
-		//alunoServices.save(a2);       //Ok
-		//alunoServices.updatePatch(a3, id); Ok
-		//alunoServices.updatePut(a3, id);  Ok
-		// Aluno busca = alunoServices.findByEmail("joao@email.com"); Ok
-		//List<Aluno>listaDeAlunos = alunoServices.findAll(); Ok
-		/*System.out.println("######          lista de alunos : ######");
-		listaDeAlunos.forEach(aluno-> System.out.println(aluno.getNome()));
-		*/
-		//alunoServices.delete(2L); //Ok
 	}
 }

@@ -27,16 +27,9 @@ public class Curso implements Serializable {
     @Column(name = "QUANTIDADE_DE_SEMESTRES")
     private int quantidadeDeSemestres;
 
-    @ManyToMany
-    @JoinTable(name = "CURSO_DISCIPLINA",
-               joinColumns = @JoinColumn(name = "idCurso"),
-               inverseJoinColumns = @JoinColumn(name = "idDisciplina"))
-    private List<Disciplina> disciplinas;
+    //@ManyToMany(mappedBy = "cursos")
+    //private List<Disciplina>discipinas;
 
-    //@JsonManagedReference
-    @ManyToMany
-    @JoinTable(name = "CURSO_ALUNO",
-            joinColumns = @JoinColumn(name = "idCurso"),
-            inverseJoinColumns = @JoinColumn(name = "idAluno"))
-    private List<Aluno> alunos;
+    //@ManyToMany(mappedBy = "cursos")
+    //private List<Aluno>alunos;
 }
