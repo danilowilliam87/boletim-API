@@ -38,4 +38,11 @@ public class CursoController {
         return ResponseEntity
                 .ok(busca);
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Curso> findByName(@RequestParam(value = "nome") String nomeDoCurso){
+        Curso busca = services.findByName(nomeDoCurso);
+        return ResponseEntity
+                .ok(busca);
+    }
 }
