@@ -144,11 +144,14 @@ public class BoletimApplication implements CommandLineRunner {
 		notasServices.lancarNotas(nota4);
 		notasServices.lancarNotas(nota5);
 
+		Notas nova = new Notas();
+		nova.setNota(-1);
 
+        notasServices.updatePatch(nova, "joana@email.com", "Portugues");
 
 
 		List<Notas> listaNotasPorAluno = notasServices
-				.findAllByAlunoAndSemestre("joao@email.com", "1");
+				.findAllByAlunoAndSemestre("joana@email.com", "1");
 
 		System.out.println("########################  NOTAS DO ALUNO "+listaNotasPorAluno.get(0).getAluno().getNome() +" ##############################");
 		listaNotasPorAluno.forEach(notas -> System.out.println(

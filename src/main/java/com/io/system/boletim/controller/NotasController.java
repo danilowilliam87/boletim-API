@@ -50,4 +50,14 @@ public class NotasController {
                 .ok()
                 .body(list);
     }
+
+    @RequestMapping(method = RequestMethod.PATCH)
+    public ResponseEntity<Void> updatePatch(@RequestBody Notas notas,
+                                            @RequestParam(value = "email") String emailAluno,
+                                            @RequestParam(value = "nome") String nomeDisciplia){
+        services.updatePatch(notas, emailAluno, nomeDisciplia);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }

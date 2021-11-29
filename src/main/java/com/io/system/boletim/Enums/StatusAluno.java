@@ -1,9 +1,11 @@
 package com.io.system.boletim.Enums;
 
 public enum StatusAluno {
-    RECUPERACAO(1, "RECUPERACAO"),
-    REPROVADO(2, "REPROVADO"),
-    APROVADO(3, "APROVADO");
+    REPROVADO(1, "REPROVADO"),
+    RECUPERACAO(2, "RECUPERACAO"),
+    APROVADO(3, "APROVADO"),
+    INDEFINIDO(4,"INDEFINIDO");
+
 
     private int codigo;
     private String descricao;

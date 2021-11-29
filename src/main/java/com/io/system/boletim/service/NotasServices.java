@@ -64,15 +64,17 @@ public class NotasServices {
     //nota tera que obrigatoriamente ser informada no corpo da requisição
     public void updatePatch(Notas notas, String email, String nomeDisciplina){
         Optional<Aluno> buscaAluno = alunoRepo
-                .findAlunoByEmailEquals(notas.getAluno().getEmail());
+                .findAlunoByEmailEquals(email);
         Optional<Disciplina> buscaDisciplina = disciplinaRepo
-                .findDisciplinaByNomeEquals(notas.getDisciplina().getNome());
+                .findDisciplinaByNomeEquals(nomeDisciplina);
         notas.setAluno(Optional.ofNullable(buscaAluno.get())
                 .orElse(notas.getAluno()));
         notas.setDisciplina(Optional.ofNullable(buscaDisciplina.get())
                 .orElse(notas.getDisciplina()));
         Optional<Notas> buscaNota = notasRepo
                 .findNotasByDisciplinaAndAluno(notas.getDisciplina(), notas.getAluno());
+        notas.setSemestre(Optional.ofNullable(buscaNota.get().getSemestre())
+                .orElse(notas.getSemestre()));
         notas.setId(buscaNota.get().getId());
         setStatus(notas);
         lancarNotas(notas);
@@ -83,8 +85,10 @@ public class NotasServices {
                 notas.setStatusAluno(StatusAluno.APROVADO);
             } else if (notas.getNota() > 4.0 && notas.getNota() < 6.0) {
                 notas.setStatusAluno(StatusAluno.RECUPERACAO);
-            } else {
+            } else if(notas.getNota() >= 0.0 && notas.getNota() < 4.0){
                 notas.setStatusAluno(StatusAluno.REPROVADO);
+            } else{
+                notas.setStatusAluno(StatusAluno.INDEFINIDO);
             }
     }
 
